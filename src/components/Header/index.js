@@ -4,6 +4,7 @@ import logo from '../../assets/images/logo.svg';
 import { Link, useLocation,useHistory } from 'react-router-dom';
 import logout from '../../context/actions/auth/logout';
 import { GlobalContext } from '../../context/provider'
+import isAuthenticated from '../../utils/isAuthenticated'
 
 function Header() {
     const { pathname } = useLocation();
@@ -29,7 +30,7 @@ function Header() {
             </Menu.Item>
             )}
 
-        {pathname === '/' &&
+        {isAuthenticated() &&
             (<Menu.Item position='right'>
                 <Button onClick={handleUserLogout} color='red' basic icon>
                     <Icon name='log out'></Icon>

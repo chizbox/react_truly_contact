@@ -1,11 +1,9 @@
 import React from 'react';
+import Header from '../../../components/Header'
+import CreateContactUI from '../../../layout/Create'
 
 function CreateContactContainer() {
-    return (
-        <div>
-            <h1>Testing Create Contact Container</h1>
-        </div>
-    );
+    return <CreateContactUI/>;
 };
 
 export default CreateContactContainer;
