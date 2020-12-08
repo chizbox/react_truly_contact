@@ -6,7 +6,6 @@ import './index.css'
 function CreateContact() {
     return (
         <div>
-            <Header />
             <Grid centered>
                 <Grid.Column className='form-column'>
                     <SemanticHeader>Create Contact</SemanticHeader>
@@ -28,6 +27,7 @@ function CreateContact() {
                     </Card>
                 </Grid.Column>
             </Grid>
+
         </div>
     )
 }
