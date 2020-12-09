@@ -27,29 +27,38 @@ function CreateContactContainer() {
         }
     }, [data]);
 
-    console.log('Contact State: ', loading)
-
-    const onChange = (e, { name, value }) => {
-        setForm({ ...form, [name]: value })
-    };
     const onSubmit = () => {
         createContact(form)(contactsDispatch);
     }
 
-    console.log('form', form);
     const formInvalid =
         !form.firstName?.length ||
         !form.lastName?.length ||
         !form.countryCode?.length ||
         !form.phoneNumber?.length;
+    console.log('formInvalid: ', formInvalid);
+
+    const formIsHalfFilled =
+        Object.values(form)
+            .filter((item) => item !== '')
+            ?.length > 0 && formInvalid ;
+
+    console.log('formIsHalfFilled: ', formIsHalfFilled);
+
+    const onChange = (e, { name, value }) => {
+        setForm({ ...form, [name]: value })
+    };
+
+    console.log('form', form);
 
 
     return <CreateContactUI
         onSubmit={onSubmit}
-        formInvalild
+        formInvalid={formInvalid}
         onChange={onChange}
         form={form}
         loading={loading}
+        formIshalfField={formIsHalfFilled}
     />;
 };
 export default CreateContactContainer;
