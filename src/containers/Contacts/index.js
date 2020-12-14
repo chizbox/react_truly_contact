@@ -7,14 +7,18 @@ import ContactsListUI from '../../layout/Contacts/List'
 
 function ContactsContainer() {
     const {contactsDispatch,contactsState} = useContext(GlobalContext)
+    
     const history = useHistory();
 
-    console.log('contactsState',contactsState);
-    console.log('history from contacts: ',history)
-    
+    const{
+        contacts:{data},
+    } = contactsState; 
+
     useEffect(() => {
-        getContacts(history)(contactsDispatch);
-    },[])
+        if(data.length ===0){
+            getContacts(history)(contactsDispatch);
+        }
+    },[]);
 
     return <ContactsListUI state={contactsState}/>;
 }
