@@ -11,11 +11,21 @@ import { useHistory } from 'react-router-dom';
 
 function CreateContactContainer() {
     const [form, setForm] = useState({});
+    const [tempFile,setTempFile] = useState(null);
     const history = useHistory();
     const {
         contactsDispatch,
         contactsState: { addContact: { loading, error, data } } }
         = useContext(GlobalContext);
+    
+    const onImageChange=(e)=>{
+        e.persist();
+        const fileURL= e.target.files[0];
+        setForm({...form,contactPicture:fileURL});
+        if(fileURL){
+            setTempFile(URL.createObjectURL(fileURL));
+        }
+    };
 
     useEffect(() => {
         if (data) {
@@ -51,7 +61,6 @@ function CreateContactContainer() {
 
     console.log('form', form);
 
-
     return <CreateContactUI
         onSubmit={onSubmit}
         formInvalid={formInvalid}
@@ -59,6 +68,8 @@ function CreateContactContainer() {
         form={form}
         loading={loading}
         formIshalfField={formIsHalfFilled}
+        onImageChange={onImageChange}
+        tempFile={tempFile}
     />;
 };
 export default CreateContactContainer;

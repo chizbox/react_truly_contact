@@ -18,7 +18,7 @@ function ContactsUI({
         <div>
             <Header />
             <Container>
-                {loading && (
+                {loading.length > 0  && (
                     <>
                         {''}
 

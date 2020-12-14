@@ -1,5 +1,14 @@
-import React from 'react'
-import { Card, Form, Grid, Header as SemanticHeader, Button, Select, Icon } from 'semantic-ui-react'
+import React, { useRef } from 'react'
+import {
+    Card,
+    Form,
+    Grid,
+    Header as SemanticHeader,
+    Button,
+    Select,
+    Icon,
+    Image
+} from 'semantic-ui-react'
 import Header from '../../components/Header'
 import './index.css'
 import '../../utils/countries'
@@ -10,19 +19,29 @@ function CreateContact({ onChange,
     onSubmit,
     formInvalid,
     loading,
-    formIshalfField, }) {
+    formIshalfField,
+    onImageChange,
+    tempFile,
+}) {
 
-    const chooseImage=()=>{
+    const imagePickRef = useRef(null);
 
-    }
+    console.log('tempFile', tempFile);
+
+    const chooseImage = () => {
+        if (imagePickRef.current) {
+            imagePickRef.current.click();
+        }
+    };
+
 
     return (
         <div>
             <Prompt
                 when={formIshalfField}
                 message={JSON.stringify({
-                    header:'Confirm',
-                    content:'You have unsaved changes, sure you wanna leave?',
+                    header: 'Confirm',
+                    content: 'You have unsaved changes, sure you wanna leave?',
                 })}
             />
             <Header />
@@ -32,11 +51,23 @@ function CreateContact({ onChange,
                     <Card fluid>
                         <Card.Content>
                             <Form unstackable>
-                                <div className='contactpicture'>
-                                    <span>Choose Picture</span>
-                                </div>
-                                <Icon name='pencil' onClick={chooseImage}/>
+                                <input
+                                    onChange={onImageChange}
+                                    ref={imagePickRef}
+                                    type='file'
+                                    hidden
+                                />
+                                {tempFile &&
+                                    <Image
+                                        className='contactpicture'
+                                        src={tempFile} />
+                                }
+                                {!tempFile && (
+                                    <div onClick={chooseImage} className='contactpicture'>
+                                        <span>Choose Picture</span>
+                                    </div>)}
 
+                                <Icon name='pencil' onClick={chooseImage} />
                                 <Form.Group widths={2}>
                                     <Form.Input
                                         label='First Name'
