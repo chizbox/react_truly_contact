@@ -6,9 +6,11 @@ import {
     Image,
     Container,
     Message,
+    Header,
 } from 'semantic-ui-react';
-import Header from '../../../components/Header';
+import AppHeader from '../../../components/Header';
 import ImageThumb from '../../../components/ImageThumb';
+import Favorites from '../Favorites';
 
 function ContactsUI({
     state: {
@@ -17,24 +19,16 @@ function ContactsUI({
 }) {
     return (
         <div>
-            <Header />
+            <AppHeader />
             <Container>
-                {loading.length > 0 && (
-                    <>
-                        {''}
+                <Header>STARRED</Header>
+                {console.log('List Data: ', data)}
+                <Favorites
+                    favorites={data.filter(item => item.is_favorite)}
+                    loading={loading}
+                />
+                <Header>ALL</Header>
 
-                        <Placeholder>
-                            <Placeholder.Header image>
-                                <Placeholder.Line />
-                                <Placeholder.Line />
-                            </Placeholder.Header>
-                            <Placeholder.Paragraph>
-                                <Placeholder.Line />
-                                <Placeholder.Line />
-                            </Placeholder.Paragraph>
-                        </Placeholder>
-                    </>
-                )}
 
                 {!loading && data.length === 0 && (
                     <Message
@@ -54,7 +48,7 @@ function ContactsUI({
                                         firstName={contact.first_name}
                                         lastName={contact.last_name}
                                         src={contact.contact_picture}
-                                        style={{width:45,height:45}}
+                                        style={{ width: 45, height: 45 }}
                                     />
                                     <span>{contact.first_name}{contact.last_name}</span>
                                 </List.Content>

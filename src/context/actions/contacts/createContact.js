@@ -13,6 +13,7 @@ export default ({ firstName: first_name,
     phoneNumber: phone_number,
     countryCode: country_code,
     contactPicture: contact_picture,
+    isFavorite: is_favorite
 }) => (dispatch) => {
     
     const saveToBackend = (url = null) => {
@@ -22,6 +23,7 @@ export default ({ firstName: first_name,
             phone_number,
             country_code,
             contact_picture: url,
+            is_favorite,
         })
         .then((res) => {
             dispatch({

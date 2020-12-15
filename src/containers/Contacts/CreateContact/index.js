@@ -38,6 +38,7 @@ function CreateContactContainer() {
     }, [data]);
 
     const onSubmit = () => {
+        console.log('Create Contact onSubmit: ', form)
         createContact(form)(contactsDispatch);
     }
 
