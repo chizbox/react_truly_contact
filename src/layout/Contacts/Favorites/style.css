@@ -3,12 +3,17 @@
     align-items: center;
     max-width: 57rem;
     overflow-y: auto;
+
+    margin: auto;
 }
 
 .single-item-container{
     padding:20px;
     text-align: center;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     min-width: 10rem;
 }
 
@@ -20,5 +25,9 @@
 }
 
 .items-container::-webkit-scrollbar{
-    
+    display: none;    
+}
+
+.icon-class{
+    cursor: pointer;
 }
