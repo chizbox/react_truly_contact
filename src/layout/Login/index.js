@@ -5,7 +5,7 @@ import {
     Message,
     Segment,
 } from 'semantic-ui-react'
-import Header from '../../components/Header';
+import Header from '../../components/Header'
 import { Link } from 'react-router-dom'
 
 // destructuring the form which was passed 

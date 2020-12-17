@@ -7,6 +7,7 @@ import {
     ADD_CONTACT_SUCCESS,
     ADD_CONTACT_ERROR,
     CLEAR_ADD_CONTACT,
+    SEARCH_CONTACTS,
 } from '../../constants/actionTypes'
 
 import contactsInitialState from '../initialstates/contactsInitialState';
@@ -59,7 +60,7 @@ const contacts = (state, { payload, type }) => {
                 ...state,
                 addContact: {
                     ...state.addContact,
-                    error:null,
+                    error: null,
                     loading: true,
                 },
             };
@@ -77,7 +78,7 @@ const contacts = (state, { payload, type }) => {
                 contacts: {
                     ...state.contacts,
                     loading: false,
-                    data: [payload,...state.contacts.data],
+                    data: [payload, ...state.contacts.data],
                 },
             };
         }
@@ -90,8 +91,8 @@ const contacts = (state, { payload, type }) => {
                     loading: false,
                 },
 
-               
-            }; 
+
+            };
         }
         case CLEAR_ADD_CONTACT: {
             console.log('Contacts Reducer Clear Add Contact')
@@ -103,7 +104,23 @@ const contacts = (state, { payload, type }) => {
                     loading: false,
                     data: null,
                 },
-            }; 
+            };
+        }
+        case SEARCH_CONTACTS: {
+            console.log('Contacts Reducer SEARCH_CONTACTS')
+            return {
+                contacts: {
+                    ...state.contacts,
+                    loading: false,
+                    isSearchActive: !!payload.length > 0 || false,
+                    // foundContacts:state.contacts.data.filter((item)=>{
+                    //     return {
+                    //         item.first_name.toLowerCase().search(payload.toLowerCase()) !==-1 ||
+                            
+                    //         ;
+                    // };
+                },
+            };
         }
         default:
             return state;

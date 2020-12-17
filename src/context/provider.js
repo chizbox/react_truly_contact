@@ -7,7 +7,6 @@ import contacts from './reducers/contacts';
 export const GlobalContext = createContext({});
 
 export const GlobalProvider = ({ children }) => {
-    console.log('Global Provider Children: ', children)
     
     const [authState, authDispatch] = useReducer(
         auth,

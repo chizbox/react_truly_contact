@@ -10,11 +10,10 @@ import {
 
 
 const auth = (state, { payload, type }) => {
-    console.log('Auth Type: ', type);
     switch (type) {
         case REGISTER_LOADING:
         case LOGIN_LOADING:
-            console.log('auth.js Switch Loading')
+            
             return {
                 ...state,
                 auth: {
@@ -26,7 +25,6 @@ const auth = (state, { payload, type }) => {
 
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
-            console.log('auth.js Switch Success')
             return {
                 ...state,
                 auth: {
@@ -38,7 +36,6 @@ const auth = (state, { payload, type }) => {
 
         case REGISTER_ERROR:
         case LOGIN_ERROR:
-            console.log('auth.js Switch Error')
             return {
                 ...state,
                 auth: {
@@ -49,7 +46,6 @@ const auth = (state, { payload, type }) => {
             };
 
         case LOGOUT_USER:
-            console.log('auth.js Logoutuser')
             return {
                 ...state,
                 auth: {

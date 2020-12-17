@@ -13,7 +13,6 @@ import UserLeaveConfirmation from './components/UserLeaveConfirmation';
 
 
 const RenderRoute = (route) => {
-  console.log('APP.js This is the route.path: ', route.path)
   const history = useHistory();
   document.title = route.title || 'TrulyContacts';
   if (route.needsAuth && !isAuthenticated()) {
