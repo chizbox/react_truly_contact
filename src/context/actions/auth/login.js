@@ -14,7 +14,6 @@ export const login =({password,username,}) => (dispatch) => {
             password,
         })
         .then((res) => {
-            console.log('login: Success');
             localStorage.token = res.data.token;
             dispatch({
                 type: LOGIN_SUCCESS,

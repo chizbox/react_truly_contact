@@ -1463,4 +1463,10 @@ export default [
       flag: "zw",
       key: "zw",
     },
+    {
+      text: "A-React101",
+      value: "+263",
+      flag: "zw",
+      key: "zw",
+    },
   ];

@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
-import { Menu, Image, Button, Icon } from 'semantic-ui-react'
+import { Menu, Image, Button, Icon, Input } from 'semantic-ui-react'
 import logo from '../../assets/images/logo.svg';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import logout from '../../context/actions/auth/logout';
 import { GlobalContext } from '../../context/provider'
 import isAuthenticated from '../../utils/isAuthenticated'
+import searchContacts from '../../context/actions/contacts/searchContacts'
 
 function Header() {
     const { pathname } = useLocation();
@@ -15,10 +16,10 @@ function Header() {
         logout(history)(contactsDispatch)(authDispatch);
     }
 
-    // const onChange = (e,{value})=> {
-    //     const searchText = value.trim().replace(/''/g,'');
-    //     searchContacts(searchText)(dispatch);
-    // }
+    const onChange = (e,{value})=> {
+        const searchText = value.trim().replace(/''/g,'');
+        searchContacts(searchText)(contactsDispatch);
+    }
 
     return (
         <Menu secondary pointing>
@@ -27,9 +28,9 @@ function Header() {
                 TrulyContacts
             </Menu.Item>
 
-            {/* <Menu.Item>
+            <Menu.Item>
                 <Input placeholder='Search Contacts' onChange={onChange}/>
-            </Menu.Item> */}
+            </Menu.Item>
          
 
             {pathname === '/' &&

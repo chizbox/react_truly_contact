@@ -23,7 +23,7 @@
     justify-content: center;
     margin: 0px 4px 15px;
 }
-
+ 
 .items-container::-webkit-scrollbar{
     display: none;    
 }

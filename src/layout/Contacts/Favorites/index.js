@@ -4,11 +4,8 @@ import ImageThumb from '../../../components/ImageThumb'
 import './style.css'
 
 function Favorites({ favorites, loading }) {
-    console.log('Favorites', favorites)
     const listRef = useRef(null);
-
     const showIcons = favorites.length > 2
-
     const scrollLeft = () => {
 
         if (listRef.current) {

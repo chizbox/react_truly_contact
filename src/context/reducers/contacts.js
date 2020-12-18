@@ -12,7 +12,6 @@ import {
 
 import contactsInitialState from '../initialstates/contactsInitialState';
 
-
 const contacts = (state, { payload, type }) => {
     switch (type) {
         case CONTACTS_LOADING: {
@@ -26,7 +25,6 @@ const contacts = (state, { payload, type }) => {
             };
         }
         case CONTACTS_LOAD_SUCCESS: {
-            console.log('CONTACTS_LOAD_SUCCESS');
             return {
                 ...state,
                 contacts: {
@@ -37,7 +35,6 @@ const contacts = (state, { payload, type }) => {
             };
         }
         case CONTACTS_LOAD_ERROR: {
-            console.log('CONTACTS_LOAD_ERROR')
             return {
                 ...state,
                 contacts: {
@@ -48,14 +45,12 @@ const contacts = (state, { payload, type }) => {
             };
         }
         case LOGOUT_USER: {
-            console.log('Contacts Reducer Logging Out User')
             return {
                 ...state,
                 contactsInitialState,
             };
         }
         case ADD_CONTACT_LOAD: {
-            console.log('Contacts Reducer Add Contact Load')
             return {
                 ...state,
                 addContact: {
@@ -66,7 +61,6 @@ const contacts = (state, { payload, type }) => {
             };
         }
         case ADD_CONTACT_SUCCESS: {
-            console.log('Contacts Reducer Add Contact Success')
             return {
                 ...state,
                 addContact: {
@@ -83,7 +77,6 @@ const contacts = (state, { payload, type }) => {
             };
         }
         case ADD_CONTACT_ERROR: {
-            console.log('Contacts Reducer ADD Contact Error')
             return {
                 ...state,
                 addContact: {
@@ -95,7 +88,6 @@ const contacts = (state, { payload, type }) => {
             };
         }
         case CLEAR_ADD_CONTACT: {
-            console.log('Contacts Reducer Clear Add Contact')
             return {
                 ...state,
                 addContact: {
@@ -107,18 +99,19 @@ const contacts = (state, { payload, type }) => {
             };
         }
         case SEARCH_CONTACTS: {
-            console.log('Contacts Reducer SEARCH_CONTACTS')
+            const searchValue = payload?.toLowerCase();
             return {
                 contacts: {
                     ...state.contacts,
                     loading: false,
                     isSearchActive: !!payload.length > 0 || false,
-                    // foundContacts:state.contacts.data.filter((item)=>{
-                    //     return {
-                    //         item.first_name.toLowerCase().search(payload.toLowerCase()) !==-1 ||
-                            
-                    //         ;
-                    // };
+                    foundContacts: state.contacts.data.filter((item) => {
+                        return (
+                            item.first_name.toLowerCase().search(payload.toLowerCase()) !== -1 ||
+                            item.last_name.toLowerCase().search(payload.toLowerCase()) !== -1 ||
+                            item.phone_number.toLowerCase().search(payload.toLowerCase()) !== -1
+                        );
+                    })
                 },
             };
         }
