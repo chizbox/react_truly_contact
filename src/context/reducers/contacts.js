@@ -104,13 +104,18 @@ const contacts = (state, { payload, type }) => {
                 contacts: {
                     ...state.contacts,
                     loading: false,
-                    isSearchActive: !!payload.length > 0 || false,
+                     isSearchActive: !!payload.length > 0 || false,
                     foundContacts: state.contacts.data.filter((item) => {
-                        return (
-                            item.first_name.toLowerCase().search(payload.toLowerCase()) !== -1 ||
-                            item.last_name.toLowerCase().search(payload.toLowerCase()) !== -1 ||
-                            item.phone_number.toLowerCase().search(payload.toLowerCase()) !== -1
-                        );
+                        try{
+                            return (
+                                item.first_name.toLowerCase().search(payload.toLowerCase()) !== -1 ||
+                                item.last_name.toLowerCase().search(payload.toLowerCase()) !== -1 ||
+                                item.phone_number.toLowerCase().search(payload.toLowerCase()) !== -1
+                            );
+                        } catch(error){
+                          return [];   
+                        }
+                     
                     })
                 },
             };

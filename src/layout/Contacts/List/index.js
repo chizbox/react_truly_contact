@@ -7,12 +7,15 @@ import {
     Container,
     Message,
     Header,
+    Button,
+    Icon,
 } from 'semantic-ui-react';
 import AppHeader from '../../../components/Header';
 import ImageThumb from '../../../components/ImageThumb';
 import Favorites from '../Favorites';
 
 function ContactsUI({
+    deleteContact,
     state: {
         contacts: { loading, isSearchActive, foundContacts, data },
     }
@@ -29,18 +32,45 @@ function ContactsUI({
                 />
                 <Header>ALL</Header>
 
-                {!loading && data.length === 0 && (
+                {loading && (
+                    <>
+                        {''}
+                        <Placeholder>
+                            <Placeholder.Header image>
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                            </Placeholder.Header>
+                            <Placeholder.Paragraph>
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                            </Placeholder.Paragraph>
+                        </Placeholder>
+                    </>
+                )}
+
+                {!loading && currentContacts.length === 0 && (
                     <Message
-                        content='No Contacts Yet'
+                        content='No Matching Contacts'
                     />
                 )}
 
                 <List>
                     {currentContacts.length > 0 &&
                         currentContacts.map((contact) => (
-                            <List.Item>
+                            <List.Item key={contact.id}>
                                 <List.Content floated='right'>
                                     <span>{contact.phone_number}</span>
+                                    <Button
+                                        color='red'
+                                        size='tiny'
+                                        onClick={() => (
+                                            deleteContact(contact.id)
+                                        )}
+                                    >
+                                        <Icon name='delete' />
+                                    </Button>
                                 </List.Content>
                                 <List.Content style={{ display: 'flex', alignItems: 'center' }}>
                                     <ImageThumb

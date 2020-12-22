@@ -16,8 +16,8 @@ function Header() {
         logout(history)(contactsDispatch)(authDispatch);
     }
 
-    const onChange = (e,{value})=> {
-        const searchText = value.trim().replace(/''/g,'');
+    const onChange = (e, { value }) => {
+        const searchText = value.trim().replace(/''/g, '');
         searchContacts(searchText)(contactsDispatch);
     }
 
@@ -28,10 +28,11 @@ function Header() {
                 TrulyContacts
             </Menu.Item>
 
-            <Menu.Item>
-                <Input placeholder='Search Contacts' onChange={onChange}/>
-            </Menu.Item>
-         
+            {isAuthenticated() &&
+                (<Menu.Item position='right'>
+                    <Input style={{width:300}} placeholder='Search Contacts' onChange={onChange}/>
+                </Menu.Item>)
+            }
 
             {pathname === '/' &&
                 (<Menu.Item position='right'>
@@ -41,7 +42,6 @@ function Header() {
                     </Button>
                 </Menu.Item>
                 )}
-
 
             {isAuthenticated() &&
                 (<Menu.Item position='right'>

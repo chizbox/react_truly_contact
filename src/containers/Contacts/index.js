@@ -1,26 +1,30 @@
-import React, { useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import getContacts from '../../context/actions/contacts/getContacts';
 import { GlobalContext } from '../../context/provider'
 import { useHistory } from "react-router-dom";
 import ContactsListUI from '../../layout/Contacts/List'
-
+import deleteContact from '../../context/actions/contacts/deleteContacts'
 
 function ContactsContainer() {
-    const {contactsDispatch,contactsState} = useContext(GlobalContext)
-    
+    const { contactsDispatch, contactsState } = useContext(GlobalContext)
+
     const history = useHistory();
 
-    const{
-        contacts:{data},
-    } = contactsState; 
+    const {
+        contacts: { data },
+    } = contactsState;
+
+    const handleDeleteContact = (id) => {
+        deleteContact(id)(contactsDispatch);
+    }
 
     useEffect(() => {
-        if(data.length ===0){
+        if (data.length === 0) {
             getContacts(history)(contactsDispatch);
         }
-    },[]);
+    }, []);
 
-    return <ContactsListUI state={contactsState}/>;
+    return <ContactsListUI state={contactsState} deleteContact={handleDeleteContact} />;
 }
 
 export default ContactsContainer;
