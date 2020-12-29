@@ -13,15 +13,15 @@ export default (id) => (dispatch) => {
     axiosInstance()
         .delete(`/contacts/${id}`)
         .then((res) => {
-            dispatch({
+             dispatch({
                 type: DELETE_CONTACT_SUCCESS,
                 payload: id,
-            })
-            // .catch((err) => {
-            //         dispatch({
-            //             type: DELETE_CONTACT_ERROR,
-            //             payload: err.response ? err.res.data : 'could not connect',
-            //         });
-            //     });
+            });
+        })
+        .catch((err) => {
+            dispatch({
+                type: DELETE_CONTACT_ERROR,
+                payload: err.response ? err.res.data : 'could not connect',
+            });
         });
 }; 

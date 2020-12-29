@@ -1,15 +1,19 @@
-import { LOGIN_ERROR, LOGIN_SUCCESS,LOGIN_LOADING } from '../../../constants/actionTypes';
+import {
+    LOGIN_ERROR,
+    LOGIN_SUCCESS,
+    LOGIN_LOADING,
+} from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInstance';
 
-export const login =({password,username,}) => (dispatch) => {
+export const login = ({ password, username, }) => (dispatch) => {
 
     console.log('login dispatch LOGIN_LOADING');
     dispatch({
         type: LOGIN_LOADING,
     });
-    
+
     axiosInstance()
-        .post('/auth/login',{
+        .post('/auth/login', {
             username,
             password,
         })
@@ -17,7 +21,7 @@ export const login =({password,username,}) => (dispatch) => {
             localStorage.token = res.data.token;
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload:res.data,
+                payload: res.data,
             });
         })
         .catch((err) => {

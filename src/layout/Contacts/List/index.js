@@ -12,10 +12,12 @@ import {
 } from 'semantic-ui-react';
 import AppHeader from '../../../components/Header';
 import ImageThumb from '../../../components/ImageThumb';
+import contacts from '../../../context/reducers/contacts';
 import Favorites from '../Favorites';
 
 function ContactsUI({
     deleteContact,
+    starUnstarContact,
     state: {
         contacts: { loading, isSearchActive, foundContacts, data },
     }
@@ -31,7 +33,6 @@ function ContactsUI({
                     loading={loading}
                 />
                 <Header>ALL</Header>
-
                 {loading && (
                     <>
                         {''}
@@ -59,9 +60,12 @@ function ContactsUI({
                 <List>
                     {currentContacts.length > 0 &&
                         currentContacts.map((contact) => (
-                            <List.Item key={contact.id}>
+                            <List.Item key={contact.id} disabled={contact.deleting}>
                                 <List.Content floated='right'>
-                                    <span>{contact.phone_number}</span>
+                                    <span>
+                                        {contact.country_code}
+                                        {contact.phone_number}
+                                    </span>
                                     <Button
                                         color='red'
                                         size='tiny'
@@ -71,6 +75,13 @@ function ContactsUI({
                                     >
                                         <Icon name='delete' />
                                     </Button>
+                                    <Button
+                                        onClick={() => {
+                                            starUnstarContact(contact.id, contact.is_favorite);
+                                        }}
+                                    >
+                                        {contact.is_favorite ? 'UNSTAR' : 'STAR'}
+                                    </Button>
                                 </List.Content>
                                 <List.Content style={{ display: 'flex', alignItems: 'center' }}>
                                     <ImageThumb
@@ -79,7 +90,11 @@ function ContactsUI({
                                         src={contact.contact_picture}
                                         style={{ width: 45, height: 45 }}
                                     />
-                                    <span>{contact.first_name}{contact.last_name}</span>
+                                    <span>
+                                        {contact.first_name}
+                                        {contact.last_name}
+                                        {contact.is_favorite && <Icon name='heart' color='red' />}
+                                    </span>
                                 </List.Content>
                             </List.Item>))
                     }

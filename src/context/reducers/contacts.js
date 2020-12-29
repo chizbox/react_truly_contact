@@ -8,6 +8,8 @@ import {
     ADD_CONTACT_ERROR,
     CLEAR_ADD_CONTACT,
     SEARCH_CONTACTS,
+    DELETE_CONTACT_SUCCESS,
+    DELETE_CONTACT_LOADING,
 } from '../../constants/actionTypes'
 
 import contactsInitialState from '../initialstates/contactsInitialState';
@@ -98,24 +100,50 @@ const contacts = (state, { payload, type }) => {
                 },
             };
         }
+        case DELETE_CONTACT_SUCCESS: {
+            return {
+                ...state,
+                contacts: {
+                    ...state.contacts,
+                    loading: false,
+                    data: state.contacts.data.filter(item => item.id !== payload),
+                }
+            }
+        }
+        case DELETE_CONTACT_LOADING: {
+            return {
+                ...state,
+                contacts: {
+                    ...state.contacts,
+                    loading: false,
+                    data: state.contacts.data.map(item => {
+                        if (item.id === payload) {
+                            return { ...item, deleting: true };
+                        }
+
+                        return item;
+                    }),
+                }
+            }
+        }
         case SEARCH_CONTACTS: {
             const searchValue = payload?.toLowerCase();
             return {
                 contacts: {
                     ...state.contacts,
                     loading: false,
-                     isSearchActive: !!payload.length > 0 || false,
+                    isSearchActive: !!payload.length > 0 || false,
                     foundContacts: state.contacts.data.filter((item) => {
-                        try{
+                        try {
                             return (
                                 item.first_name.toLowerCase().search(payload.toLowerCase()) !== -1 ||
                                 item.last_name.toLowerCase().search(payload.toLowerCase()) !== -1 ||
                                 item.phone_number.toLowerCase().search(payload.toLowerCase()) !== -1
                             );
-                        } catch(error){
-                          return [];   
+                        } catch (error) {
+                            return [];
                         }
-                     
+
                     })
                 },
             };
