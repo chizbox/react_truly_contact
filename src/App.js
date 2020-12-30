@@ -8,12 +8,12 @@ import {
 import routes from './routes';
 import { GlobalProvider } from './context/provider'
 import isAuthenticated from './utils/isAuthenticated';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import UserLeaveConfirmation from './components/UserLeaveConfirmation';
 
 
 const RenderRoute = (route) => {
-  
+
   const history = useHistory();
   document.title = route.title || 'TrulyContacts';
   if (route.needsAuth && !isAuthenticated()) {
@@ -28,7 +28,7 @@ const RenderRoute = (route) => {
 };
 
 function App() {
-  const [confirmOpen,setConfirmOpen] = useState(true);
+  const [confirmOpen, setConfirmOpen] = useState(true);
 
   return (
     <GlobalProvider>
@@ -36,14 +36,18 @@ function App() {
         return UserLeaveConfirmation(message,
           callback,
           confirmOpen,
-          setConfirmOpen,)
+          setConfirmOpen)
       }}>
-        <Switch>
-          {routes.map((route, index) => (
-            <RenderRoute {...route} key={index} />))
-          }
-        </Switch>
+
+        <Suspense fallback={<p>Loading</p>}>
+          <Switch>
+            {routes.map((route, index) => (
+              <RenderRoute {...route} key={index} />))
+            }
+          </Switch>
+        </Suspense>
       </Router>
+      
     </GlobalProvider>
   );
 }
